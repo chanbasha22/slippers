@@ -1,24 +1,26 @@
+# init_db.py
 import sqlite3
 import os
 
-# Make sure the database folder exists
+# Ensure the folder exists
 os.makedirs("database", exist_ok=True)
 
-# Connect to (or create) the database file
+# Connect to (or create) a valid SQLite DB
 conn = sqlite3.connect("database/hello.db")
 cursor = conn.cursor()
 
-# Create the bookings table
+# Create the table
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS bookings (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
-    product TEXT,
-    size TEXT,
-    address TEXT
+    name TEXT NOT NULL,
+    product TEXT NOT NULL,
+    size INTEGER NOT NULL,
+    address TEXT NOT NULL
 )
 ''')
 
 conn.commit()
 conn.close()
-print("✅ Database created at: database/hello.db")
+
+print("✅ hello.db created successfully with bookings table.")

@@ -4,18 +4,16 @@ import os
 
 app = Flask(__name__)
 
-# ✅ Function to connect to SQLite database
+# Connect to SQLite
 def get_db_connection():
-    conn = sqlite3.connect('database/hello.db')  # Use your own .db file
+    conn = sqlite3.connect('database/hello.db')
     conn.row_factory = sqlite3.Row
     return conn
 
-# ✅ Home Page
 @app.route('/')
 def index():
     return render_template("index.html")
 
-# ✅ Static Pages
 @app.route('/about.html')
 def about():
     return render_template("about.html")
@@ -44,12 +42,10 @@ def summer():
 def winter():
     return render_template("winter.html")
 
-# ✅ Booking Page
 @app.route('/booking.html')
 def booking():
     return render_template("booking.html")
 
-# ✅ Booking form submission
 @app.route('/submit', methods=['POST'])
 def submit():
     name = request.form['name']
@@ -63,8 +59,7 @@ def submit():
     conn.commit()
     conn.close()
 
-    return render_template("booking.html", message="Booking successful!")
+    return render_template("booking.html", message="✅ Booking successful!")
 
 if __name__ == '__main__':
-    os.makedirs("database", exist_ok=True)
     app.run(debug=True)
