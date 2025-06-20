@@ -1,16 +1,14 @@
 from flask import Flask, render_template, request, redirect
-import mysql.connector
+import sqlite3
+import os
 
 app = Flask(__name__)
 
-# ✅ MySQL connection
-mydb = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="",  # Use your MySQL password here
-    database="hello"
-)
-cursor = mydb.cursor()
+# ✅ Function to connect to SQLite database
+def get_db_connection():
+    conn = sqlite3.connect('database/hello.db')  # Use your own .db file
+    conn.row_factory = sqlite3.Row
+    return conn
 
 # ✅ Home Page
 @app.route('/')
@@ -59,12 +57,14 @@ def submit():
     size = request.form['size']
     address = request.form['address']
 
-    sql = "INSERT INTO bookings (name, product, size, address) VALUES (%s, %s, %s, %s)"
-    values = (name, product, size, address)
-    cursor.execute(sql, values)
-    mydb.commit()
+    conn = get_db_connection()
+    conn.execute("INSERT INTO bookings (name, product, size, address) VALUES (?, ?, ?, ?)",
+                 (name, product, size, address))
+    conn.commit()
+    conn.close()
 
-    return redirect('/booking.html')  # Redirect back to booking page or confirmation page
+    return render_template("booking.html", message="Booking successful!")
 
 if __name__ == '__main__':
+    os.makedirs("database", exist_ok=True)
     app.run(debug=True)
