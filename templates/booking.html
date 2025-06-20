@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking - CozySteps Slippers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f9f9f9;
+        }
+        header, footer {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+        nav {
+            background-color: #333;
+            overflow: hidden;
+        }
+        nav a {
+            float: left;
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        section {
+            padding: 20px;
+        }
+        form input, form select, form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        form input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        form input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Book Your Slippers</h1>
+</header>
+
+<nav>
+    <a href="/">Home</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+    <a href="/booking">Booking</a>
+</nav>
+
+<section>
+    <form action="/submit" method="POST" onsubmit="return confirmBooking()">
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="product">Select Product:</label>
+        <select id="product" name="product">
+            <option value="fluffy">Fluffy Slippers</option>
+            <option value="leather">Leather Slippers</option>
+            <option value="summer">Summer Slippers</option>
+        </select>
+
+        <label for="size">Size:</label>
+        <input type="number" id="size" name="size" required>
+
+        <label for="address">Delivery Address:</label>
+        <textarea id="address" name="address" required></textarea>
+
+        <input type="submit" value="Book Now">
+    </form>
+</section>
+
+<footer>
+    <p>&copy; 2025 CozySteps Slippers</p>
+</footer>
+
+<script>
+    function confirmBooking() {
+        alert("Order confirmed successfully!");
+        return true;
+    }
+</script>
+
+</body>
+</html>
